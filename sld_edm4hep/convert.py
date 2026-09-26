@@ -101,9 +101,9 @@ def _id_map(ids: np.ndarray) -> dict[int, int]:
 
 
 def convert(inp: str, out: str, max_events: int | None = None, first: int = 0, quiet: bool = False) -> dict:
-    import ROOT
     import edm4hep
     import podio
+    import ROOT
     from podio import root_io
 
     t0 = time.time()
@@ -209,7 +209,7 @@ def convert(inp: str, out: str, max_events: int | None = None, first: int = 0, q
             generator_level = np.zeros(len(ids), dtype=bool)
             mc_objs = []  # mutable handles (collection indexing returns const objects)
             for i in range(len(ids)):
-                pdg, mass, charge, name = ptypes.lookup(int(code[i]))
+                pdg, mass, charge, _name = ptypes.lookup(int(code[i]))
                 acode = abs(int(code[i]))
                 if acode in ptypes.MASS_FROM_ENERGY or acode not in ptypes.TABLE:
                     mass = math.sqrt(max(e[i] * e[i] - p2[i], 0.0))

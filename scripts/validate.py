@@ -20,7 +20,7 @@ import pyarrow.parquet as pq
 import uproot
 
 sys.path.insert(0, ".")
-from sld_edm4hep.convert import CM_TO_MM, OMEGA_PER_INVPT  # noqa: E402
+from sld_edm4hep.convert import CM_TO_MM, OMEGA_PER_INVPT
 
 
 def main() -> int:
