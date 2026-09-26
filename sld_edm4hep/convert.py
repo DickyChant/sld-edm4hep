@@ -23,7 +23,7 @@ import pyarrow.parquet as pq
 
 from . import ptypes
 
-CONVERTER_VERSION = "0.1.0"
+CONVERTER_VERSION = "0.1.1"
 MAPPING_VERSION = "2026-09-26"
 
 # --- units and detector constants -------------------------------------------------

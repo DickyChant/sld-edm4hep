@@ -69,6 +69,7 @@ TABLE: dict[int, PType] = {
     6:  _T("a_1+",    20213, 1.23,   1.0, note="m~1.22, ->rho pi"),
     16: _T("a_1(0)",  20113, 1.23,   0.0, True, note="m~1.20, ->rho pi"),
     94: _T("K_1(1270)+", 10323, 1.272, 1.0, note="m~1.29, ->K pi, K rho, K* pi"),
+    96: _T("K_1(1400)+", 20323, 1.403, 1.0, note="m~1.39, ->K* pi"),
     97: _T("K_1(1400)0", 20313, 1.403, 0.0, note="m~1.41, ->K* pi"),
     # baryons (JETSET 6.3 numbering)
     41: _T("p",       2212, 0.93827,  1.0),
@@ -101,6 +102,10 @@ TABLE: dict[int, PType] = {
     73: _T("Sigma_c*0",  4114, 2.5180, 0.0),
     74: _T("Xi_c*+",     4324, 2.6459, 1.0),
     75: _T("Xi_c*0",     4314, 2.6461, 0.0),
+    52: _T("Xi_c'0",     4312, 2.5792, 0.0, note="m=2.55 in JETSET, ->Xi_c0 gamma"),
+    53: _T("Omega_c0",   4332, 2.6952, 0.0, note="m=2.73 in JETSET"),
+    76: _T("Omega_c*0",  4334, 2.7659, 0.0, note="m=2.80 in JETSET, ->Omega_c0 gamma"),
+    83: _T("Upsilon",    553,  9.4603, 0.0, True, note="m=9.4 in JETSET, ->gg"),
     # b hadrons (SLD extension of the 6.3 table)
     101: _T("B+",      521, 5.27934, 1.0),
     102: _T("B0",      511, 5.27965, 0.0),
@@ -108,6 +113,8 @@ TABLE: dict[int, PType] = {
     123: _T("B*+",     523, 5.3247,  1.0),
     124: _T("B*0",     513, 5.3247,  0.0),
     125: _T("B_s*0",   533, 5.4154,  0.0),
+    104: _T("B_c+",    541, 6.2745,  1.0, note="m=6.40 in JETSET"),
+    126: _T("B_c*+",   543, 6.3310,  1.0, note="m=6.60 in JETSET, ->B_c gamma"),
     145: _T("Sigma_b+",  5222, 5.81056, 1.0),
     146: _T("Sigma_b0",  5212, 5.8135,  0.0),
     147: _T("Sigma_b-",  5112, 5.81564, -1.0),
@@ -119,6 +126,10 @@ TABLE: dict[int, PType] = {
     295: _T("Sigma_b*-", 5114, 5.83474, -1.0),
     296: _T("Xi_b*0",    5324, 5.9520,  0.0),
     297: _T("Xi_b*-",    5314, 5.9555, -1.0),
+    148: _T("Xi_b'0",    5322, 5.9350,  0.0, note="m=5.96 in JETSET, ->Xi_b0 gamma"),
+    149: _T("Xi_b'-",    5312, 5.9350, -1.0, note="m=5.96 in JETSET, ->Xi_b- gamma"),
+    150: _T("Omega_b-",  5332, 6.0452, -1.0, note="m=6.12 in JETSET"),
+    298: _T("Omega_b*-", 5334, 6.0800, -1.0, note="m=6.13 in JETSET, ->Omega_b gamma"),
     # excited charm mesons: m 2.38-2.63 GeV, decays to D(*) pi / D(*) K; the JETSET 6.3
     # extension table that fixes which state is which is not in the corpus.
     109: _T("D**(2420)0?", 0, 2.4228, 0.0, note="->D* pi, D pi; likely D_1(2420)0"),
@@ -148,6 +159,8 @@ TABLE: dict[int, PType] = {
     1000091: _T("cluster",   91, 0.0, 0.0, True, note="JETSET 7.3 KF 91; mass from stored E"),
     1000092: _T("string",    92, 0.0, 0.0, True, note="JETSET 7.3 KF 92; mass from stored E"),
     1000094: _T("CMshower",  94, 0.0, 0.0, True, note="JETSET 7.3 KF 94; mass from stored E"),
+    1000225: _T("f_2(1270)", 225, 1.2755, 0.0, True),
+    1000325: _T("K_2*(1430)+", 325, 1.4273, 1.0),
     1000445: _T("chi_c2",    445, 3.55617, 0.0, True),
     1010221: _T("f_0(980)",  9010221, 0.990, 0.0, True),
     1010321: _T("K_0*(1430)+", 10321, 1.425, 1.0),

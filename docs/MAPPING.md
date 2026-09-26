@@ -62,12 +62,14 @@ not documented and the word is kept in `type`.
 **Particle codes.** `ptype` uses the JETSET 6.3 numbering for |code| < 1000 (7 e⁻, 8 νₑ,
 9 μ⁻, 10 ν_μ, 11 τ⁻, 12 ν_τ; 17 π⁺, 18 K⁺, 19 K⁰, 20–22 D, 23 π⁰, 24 η, 25 η′, 26 η_c,
 27–29 ρ⁺/K*, 30–32 D*, 33 ρ⁰, 34 ω, 35 φ, 36 J/ψ, 37 K_S, 38 K_L; 41 p, 42 n, 43–47 Σ/Ξ,
-48–51 Σ_c/Ξ_c′, 57 Λ, 58 Λ_c, 59–60 Ξ_c, 61–64 Δ, 65–69 Σ*/Ξ*, 70 Ω⁻, 71–75 Σ_c*/Ξ_c*;
+48–53 Σ_c/Ξ_c′/Ω_c, 57 Λ, 58 Λ_c, 59–60 Ξ_c, 61–64 Δ, 65–69 Σ*/Ξ*, 70 Ω⁻, 71–76 Σ_c*/Ξ_c*/Ω_c*;
 partons 500 g, 501 u, 502 d, 503 s, 504 c, 505 b in the JETSET 6.x flavour order) with
-SLD extensions (6/16 a₁, 94/97 K₁, 101–103 B, 123–125 B*, 145–147 Σ_b, 241–243 Λ_b/Ξ_b,
-293–297 Σ_b*/Ξ_b*, 91–93 d/t/α from GEANT), and `1000000 + KF` in the JETSET 7.3
-numbering above (1000091 cluster, 1000092 string, 1000094 CM-shower system, 1000445 χ_c2,
-1010221 f₀(980), 1010321 K₀*(1430), 1010441 χ_c0, 1020443 χ_c1, 1030443 ψ(2S)).
+SLD extensions (6/16 a₁, 83 Υ, 94/96/97 K₁, 101–104 B/B_c, 123–126 B*/B_c*, 145–150 Σ_b/Ξ_b′/Ω_b,
+241–243 Λ_b/Ξ_b, 293–298 Σ_b*/Ξ_b*/Ω_b*, 91–93 d/t/α from GEANT), and `1000000 + KF` in the JETSET 7.3
+numbering above (1000091 cluster, 1000092 string, 1000094 CM-shower system, 1000225 f₂(1270),
+1000325 K₂*(1430), 1000445 χ_c2, 1010221 f₀(980), 1010321 K₀*(1430), 1010441 χ_c0,
+1020443 χ_c1, 1030443 ψ(2S)). Every code present in the 272k-event simulation release is
+in the table.
 **A positive code is the particle, a negative code the antiparticle.** The identifications
 were made from the median mass of the stored energy, the charge, and the decay products
 (e.g. Σ⁰ → 1 + 57, Λ → 41 + 17, Δ⁺⁺ → 41 + 17), and the whole convention is checked by
@@ -129,3 +131,11 @@ complete code → PDG table used.
 7. The muon sample asymmetry (SLD code −9 four times more frequent than +9 among GEANT
    secondaries) is a property of the input, not of the conversion; noted here so that
    nobody attributes it to the code/sign convention, which the net-charge test fixes.
+
+## 5. Production 2026-09-26
+
+All 68 data files (647,000 events) and 9 simulation files (272,000 events) of the
+release converted with converter 0.1.1 and validated against their sources: 14.0M tracks,
+44.9M clusters, 52.2M reconstructed particles, 67.5M MC particles; 9.9 GB under
+`/media/sqian/WD_RED/sld-edm4hep/edm4hep/{data,mc}/`, one `.ok` marker per validated file
+and one log per file in `logs/`.
