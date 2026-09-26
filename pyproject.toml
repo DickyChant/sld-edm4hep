@@ -1,0 +1,9 @@
+[project]
+name = "sld-edm4hep"
+version = "0.1.0"
+description = "SLD legacy mini-DSTs (Parquet) to EDM4hep"
+requires-python = ">=3.11"
+dependencies = ["pyarrow", "awkward", "numpy", "pyyaml"]
+
+[tool.ruff]
+line-length = 100
