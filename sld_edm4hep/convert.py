@@ -23,8 +23,9 @@ import pyarrow.parquet as pq
 
 from . import ptypes
 
-CONVERTER_VERSION = "0.1.1"
-MAPPING_VERSION = "2026-09-26"
+CONVERTER_VERSION = "0.1.2"
+MAPPING_VERSION = "2026-10-15"
+NO_3D_IMPACT = -999.0   # PHCHRG impact3/b3norm sentinel: no 3D impact parameter
 
 # --- units and detector constants -------------------------------------------------
 CM_TO_MM = 10.0
@@ -298,10 +299,13 @@ def convert(inp: str, out: str, max_events: int | None = None, first: int = 0, q
                 dedx_ud.push_back(int(c["dedx"][s][i]))
                 imc_raw = int(c["imc"][s][i])
                 imc_ud.push_back(imc_raw)
-                b2d_ud.push_back(float(c["bnorm"][s][i]) * CM_TO_MM)
-                b2dsig_ud.push_back(float(c["impact"][s][i]))
-                b3d_ud.push_back(float(c["b3norm"][s][i]) * CM_TO_MM)
-                b3dsig_ud.push_back(float(c["impact3"][s][i]))
+                # PHCHRG: impact/impact3 = impact parameter (cm), bnorm/b3norm = impact / its error (significance);
+                # both unsigned; the 3D words are -999 where no 3D impact was computed (kept as -999, not scaled)
+                b2d_ud.push_back(float(c["impact"][s][i]) * CM_TO_MM)
+                b2dsig_ud.push_back(float(c["bnorm"][s][i]))
+                i3 = float(c["impact3"][s][i])
+                b3d_ud.push_back(i3 * CM_TO_MM if i3 > NO_3D_IMPACT else NO_3D_IMPACT)
+                b3dsig_ud.push_back(float(c["b3norm"][s][i]))
                 if is_mc and imc_raw != 0:
                     j = mc_index_by_id.get(abs(imc_raw), -1)
                     if j >= 0:
