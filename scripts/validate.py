@@ -77,6 +77,9 @@ def main() -> int:
     check(np.allclose(cov[:, 2], d[:, 0]), "cov(phi,phi) round-trip")
     check(np.allclose(cov[:, 5], d[:, 2] * OMEGA_PER_INVPT**2), "cov(omega,omega) round-trip")
     check(np.allclose(cov[:, 0], d[:, 9] * CM_TO_MM**2) and np.allclose(cov[:, 9], d[:, 14] * CM_TO_MM**2), "cov(d0,d0), cov(z0,z0) round-trip")
+    imp2 = ak.to_numpy(ak.flatten(ev["ChargedTracksImpact2D"].array())); sig2 = ak.to_numpy(ak.flatten(ev["ChargedTracksImpact2DSignificance"].array()))
+    check(np.allclose(imp2, ak.to_numpy(ak.flatten(src.PHCHRG.impact)) * CM_TO_MM, rtol=1e-5)
+          and np.allclose(sig2, ak.to_numpy(ak.flatten(src.PHCHRG.bnorm)), rtol=1e-5), "2D impact (mm) == impact*10, significance == bnorm")
     print(f"     track sigma: phi {np.sqrt(np.median(cov[:,2]))*1e3:.2f} mrad, d0 {np.sqrt(np.median(cov[:,0]))*1e3:.0f} um, z0 {np.sqrt(np.median(cov[:,9]))*1e3:.0f} um")
 
     # --- reconstructed particles

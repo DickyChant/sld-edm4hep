@@ -1,6 +1,6 @@
 # SLD mini-DST banks → EDM4hep
 
-Mapping version 2026-09-26. Target layout: the collections used by the ALEPH/OPAL legacy
+Mapping version 2026-10-15. Target layout: the collections used by the ALEPH/OPAL legacy
 conversions (podio 1.7, EDM4hep 1.0), so that the same reader works for all three
 experiments. Lengths cm → mm, energies GeV, magnetic field 0.6 T.
 
@@ -17,7 +17,7 @@ section 4 and are preserved raw so that nothing is lost.
 | PHBM | event parameters `ecm, decm, pol, dpol`; `PrimaryVertex` | position = `pos`·10, covMatrix = `dpos`·100 (6 packed lower-triangle terms), type = primary. `ecm` is −999 where unmeasured, 0 in simulation. `pol` is the signed longitudinal electron-beam polarization |
 | PHPSUM + PHPOINT | `ReconstructedParticles` | momentum, energy = `ptot` (massless convention), mass 0, charge, referencePoint = (x,y,z)·10; relations `tracks` (PHPOINT.phchrg_id) and `clusters` (PHPOINT.phklus_id). PHPOINT has one row per PHPSUM row; a pointer of 0 means none |
 | PHCHRG | `ChargedTracks` | type = `status` word (raw), chi2 = `chi2dt`, ndf = `ndfdt`, Nholes = `nmisht`, subdetectorHitNumbers = [`nhit`, `nhitv`, `nhite`, `nhitp`, `nmisht`, `nwrght`]; one `TrackState` (AtIP), see §2.1 |
-| PHCHRG (extra) | `ChargedTracksDedxRaw` (int32), `ChargedTracksImcRaw` (int32), `ChargedTracksImpact2D/3D` (mm), `ChargedTracksImpact2DSignificance/3DSignificance` | raw `dedx` word, raw `imc`, `bnorm`, `b3norm`, `impact`, `impact3` |
+| PHCHRG (extra) | `ChargedTracksDedxRaw` (int32), `ChargedTracksImcRaw` (int32), `ChargedTracksImpact2D/3D` (mm), `ChargedTracksImpact2DSignificance/3DSignificance` | raw `dedx` word, raw `imc`, `impact`·10 and `impact3`·10 (mm), `bnorm` and `b3norm` (impact / σ). All unsigned; the 3D words are −999 where no 3D impact exists (kept as −999). Converter ≤ 0.1.1 had the pairs swapped (Impact = bnorm·10, Significance = impact); fixed in 0.1.2. Identified from the flavour dependence in the MC: median `impact` 0.0052 cm (uds) vs 0.0175 cm (b), median `bnorm` 1.17 vs 2.33 |
 | PHKLUS | `Clusters` | type = `status` (raw), energy = `eraw`, position = point on the nominal LAC front face along (cosθ, φ) (§2.2), iTheta, iPhi, shapeParameters = [cth, wcth, phi, wphi, nhit2, cth2, wcth2, phi2, whphi2, nhit3, cth3, wcth3, phi3, wphi3], subdetectorEnergies = `elayer[8]` |
 | PHKELID | `ElectronID` (ParticleID, algorithmType 1, PDG 11) | type = `idstat`, likelihood = `prob`, parameters = [qp, em1, em12, had1, isolat, phiwid, thewid, em1x1, em2x2a, em2x2b, em3x3a, em3x3b]; `particle` → RP via PHPOINT.phkelid_id |
 | PHWIC | `MuonID` (ParticleID, algorithmType 2, PDG 13) | type = `idstat`, likelihood = `missprob`, parameters = [nhit, nhit45, npat, nhitpat, nlayexp, nlaybey, chi2, ndf, matchChi2, matchNdf, itrlen] |
@@ -135,7 +135,7 @@ complete code → PDG table used.
 ## 5. Production 2026-09-26
 
 All 68 data files (647,000 events) and 9 simulation files (272,000 events) of the
-release converted with converter 0.1.1 and validated against their sources: 14.0M tracks,
+release converted with converter 0.1.1 (impact fields swapped, see §1; reconvert with ≥ 0.1.2) and validated against their sources: 14.0M tracks,
 44.9M clusters, 52.2M reconstructed particles, 67.5M MC particles; 9.9 GB under
 `/media/sqian/WD_RED/sld-edm4hep/edm4hep/{data,mc}/`, one `.ok` marker per validated file
 and one log per file in `logs/`.
